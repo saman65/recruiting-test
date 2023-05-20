@@ -1,3 +1,5 @@
+<?php ob_start(); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +13,17 @@
     <p id="server-time"></p>
     <p id="client-ip"></p>
   </div>
-
+  <?php
+    if(isset($_GET['message']) && $_GET['message']=='success'){
+      $message="<h4 class='bg-success text-center'>Your comment was sent</h4>";
+      echo $message;
+    }
+  ?>
   <div class="well col-md-4 offset-md-4">
-    <form action="submit.php" method="POST">
+    <form action="submit.php" method="POST" onsubmit="return validateForm()">
       <label for="username" class="form-label">Username:</label>
       <div class="mb-2 mt-1">
-        <input type="text" id="username" class="form-control" name="username" placeholder="Enter Username" required pattern="[a-zA-Z0-9]+">
+        <input type="text" id="username" class="form-control" name="username" placeholder="Enter Username" required">
       </div>
 
       <label for="beername" class="form-label">Beer Name:</label>
