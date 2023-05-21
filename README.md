@@ -13,7 +13,7 @@ Now let's document the functions in the code.
 
 ##Functions:
 
-There are two functions being used, which we can document:
+There are two functions being used, which we can discussed:
 
 getPunkAPIInfo($beername) - This function is used to retrieve information from the Punk API based on the provided beer name.
 
