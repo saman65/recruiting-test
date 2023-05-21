@@ -55,3 +55,24 @@ Return Value:
 The anonymized username, where the first name is shortened to its first three letters followed by 'x' characters, and the last name is represented by its first letter followed by a dot.
 If the last name is not provided, only the anonymized first name is returned.
 Please note that the implementation details for these functions are provided in the code. Ensure that the Punk API is accessible and the necessary PHP functions (e.g., file_get_contents) are enabled for the getPunkAPIInfo() function to work correctly. Additionally, verify that the anonymizeUsername() function fulfills the desired anonymization requirements for your project.
+
+#####JavaScript Code
+
+The JavaScript code snippet provided performs the following tasks:
+
+servereTime()
+This function fetches the server's UTC time using the ISO-8601 format.
+The server time is displayed in an element with the ID "server-time".
+The function is executed repeatedly every 1 millisecond using the setInterval function.
+Fetching the Client IP Address
+
+The client IP address is fetched from an API using the fetch function.
+The API used is "https://api.ipify.org?format=json".
+The fetched IP address is displayed in an element with the ID "client-ip".
+
+validateForm()
+This function is used to validate the username input in a form.
+It retrieves the value of the "username" field from the form.
+It uses a regular expression (/^[a-zA-Z0-9]+$/) to match only alphanumeric characters.
+If the username contains any non-alphanumeric characters, an alert is shown, and the function returns false to prevent form submission.
+
