@@ -8,15 +8,17 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="flex-center">
-    <h1>Hello World!</h1>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center my-3 border rounded p-3 bg-light">
+        <h1>Hello World!</h1>
+        <p id="server-time"></p>
+        <p id="client-ip"></p>
+    </div>
   </div>
-  <div class="flex-center">
-    <p id="server-time"></p>
-  </div>
-  <div class="flex-center">
-    <p id="client-ip"></p>
-  </div>
+</div>
+
   <!-- ... -->
   <div class="comments">
     <?php
@@ -27,34 +29,79 @@
       $message="<div class='col-md-12'><h4 class='bg-success text-center'>Your comment was sent</h4></div>";
       echo $message;
     }
+
+    $per_page = 10;
+    if(isset($_GET['page'])){
+      $page = $_GET['page'];
+    }else{
+        $page = "";
+    }
     
-    try {
+    if($page == "" || $page == 1){
+        $page_1 = 0;
+    }else{
+        $page_1 = ($page * $per_page) - $per_page;
+    }
 
-      $sql = "SELECT username, beername, comment FROM comments";
-      $stmt = $conn->query($sql);
+    $comment_query_count = "SELECT * FROM comments ORDER by id DESC";
+    $find_count = $conn->query($comment_query_count);
+    $count = $find_count->num_rows;
+    $count = ceil($count / $per_page);
 
-      // Iterate over the comments and generate HTML markup
-      while ($row = $stmt->fetch_assoc()) {
-        $username = $row['username'];
-        $beername = $row['beername'];
-        $comment = $row['comment'];
-        $punkAPIInfo = getPunkAPIInfo($beername); // Implement this function to retrieve Punk API info
+    $query = "SELECT * FROM comments ORDER by id DESC LIMIT ?, ? ";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('ii', $page_1, $per_page);
+    $stmt->execute();
+    $select_all_comments_query = $stmt->get_result();
 
-        echo '<div class="comment" data-username="' . $username . '" data-beer="' . $beername . '">';
-        if(isset($punkAPIInfo['imageUrl'])){
-          echo '<img src="' . $punkAPIInfo['imageUrl'] . '" alt="' . $beername . '">';
-        }
-        echo '<p style="align-self: flex-start">' . $beername . '</p>';
-        echo '<p><b>' . $comment . '</b></p>';
-        echo '<p><em>' . $username . '</em></p>';
-        echo '</div>';
+    // Iterate over the comments and generate HTML markup
+    while ($row = $select_all_comments_query->fetch_assoc()) {
+      $username = $row['username'];
+      $beername = $row['beername'];
+      $comment = $row['comment'];
+      $punkAPIInfo = getPunkAPIInfo($beername); // Implement this function to retrieve Punk API info
+      $anonymizedUsername = anonymizeUsername($username); // Implement this function to anonymize usernames
+
+
+      echo '<div class="comment" data-username="' . $username . '" data-beer="' . $beername . '">';
+      if(isset($punkAPIInfo['imageUrl'])){
+        echo '<img src="' . $punkAPIInfo['imageUrl'] . '" alt="' . $beername . '">';
       }
-    } catch(Exception $e) {
-      echo "Error: " . $e->getMessage();
+      echo '<p style="align-self: flex-start">' . $beername . '</p>';
+      echo '<p><b>' . $comment . '</b></p>';
+      echo '<p><em>' . $anonymizedUsername . '</em></p>';
+      echo '</div>';
     }
 
     $conn = null;
     ?>
+<div class="container">
+<ul class='pager'>
+  <?php
+    if(!$page){$page = 1;}
+    for($i = $page; $i <= ((int)$page+9) && $i <= $count; $i++){
+        if($i == $page && $i > 1 && $i < $page+9 && $i <= $count && $i !== null){
+            if($i>10){
+                echo "<li><a href='index.php?page=".($i-10)."'>"."<<"."</a></li>";
+            }
+        echo "<li><a href='index.php?page=".($i-1)."'>"."<"."</a></li>";
+        echo "<li><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
+        }elseif($i == $page && ($i == 1 || $page == null)){
+            $i = 1;
+        echo "<li><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
+        }elseif($i !== $page && $i > (int)$page+8 && $i <= $count && $i !== null){
+        echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
+        echo "<li><a href='index.php?page=".($i+1)."'>".">"."</a></li>";
+            if($i<$count-10){
+                echo "<li><a href='index.php?page=".($i+10)."'>".">>"."</a></li>";
+            }
+        }else{
+        echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
+        }
+    }
+  ?>
+</ul>
+</div>
 
   </div>
   <!-- ... -->
