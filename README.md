@@ -1,119 +1,78 @@
-# recruiting-test
+#Purpose of the Code:
 
-In this recruiting test, you must perform a very basic web page that allows people to say useless stuff generated from a web service.
+The index.php file represents the main page of a web application. It includes HTML, CSS, and PHP code to display a "Hello World!" message, retrieve and display comments from a database and beer information form a webserver through REST, and provide a form for users to submit new comments. The page also includes pagination functionality to navigate through the comments.
 
-There is a main trunk list of tasks to perform in a given order.
+The code performs the following tasks:
 
-## Test requirements
+Display a "Hello World!" message along with server time and client IP address.
+Retrieve comments from the database and display them in a formatted manner.
+Display a success message if a comment was successfully submitted.
+Provide pagination links to navigate through the comments.
+Display a form to allow users to submit new comments.
+Now let's document the functions in the code.
 
-We strongly suggest that you set up your project. You will need:
- - PHP (Use a framework that you feel comfortable with)
- - Bootstrap
- - A third part storage service (Database, file, etc.)
- - A web-server
+##Functions:
 
-#### If I don't know how to?
+There are two functions being used, which we can document:
 
-Don't worry, that's absolutely normal. Don't fear to use Stack-Overflow/OpenClassrooms or Google. That's part of the developer job. 
+getPunkAPIInfo($beername) - This function is used to retrieve information from the Punk API based on the provided beer name.
 
-#### If I don't have the time to finish?
+anonymizeUsername($username) - This function is used to anonymize the provided username.
 
-That's ALSO absolutely normal. The objective is to verify some capabilities and how you work.
+###Deployment:
 
-#### Can I start working on it before the interview ? 
+To deploy and operate the code, follow these steps:
 
-The test is meant to be known before the interview occurs. For the good reason to allow people who feel the need to prepare it to do so.
+Copy all the files to the appropriate location on your web server.
 
-We really don't care if you start working on this beforehand. All that really matter is the building process, not the fact that everything runs perfectly.
+Ensure that you have a compatible version of PHP installed on the server.
 
-**We don't want you to work too much on this**, after all, it's just a job interview.
+Create a MySQL database and import the required database structure using the provided SQL script (not included in the provided code). Update the database connection details in the db.php file.
 
-## Application requirements
+Make sure the necessary CSS and JavaScript files are present in the specified locations (css/bootstrap.min.css, css/style.css, js/script.js).
 
-We intend to provide a web page that allow user to put comment on a beer. The web page displays all posted comments as cards paginated across many pages.
+Ensure that the web server has the necessary permissions to read and write files and folders as required by the application.
 
-1. Clone this git public repository, start a new branch. From now use git as a tool for this project.
-1. Display a page with a title "Hello World!".
-1. Display some dynamic content based on the page:
-   - Server UTC time, formatted using [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) standard format 
-   - The HTTP client IP address
-1. Now, create a form with some fields:
-   - Username
-   - Beer name
-   - Comment
-1. Add some validation in PHP on the field comment, it must be emptyish (null, empty, only spaces).
-1. Add some validation in JavaScript on the field username, it can accept only alphanumeric characters.
-1. Upon form POST submission, store the fields permanently in your third part storage service. 
-1. Main page must now display list of comments in cards respecting this HTML structure:
-    ```html
-    <div class="comments">
-      <div data-username="{username}" data-beer="{beername}">
-        {comment}
-      </div>
-      <div data-username="{username}" data-beer="{beername}">
-        {comment}
-      </div>
-      <!-- And so on -->  
-    </div>
-    ```
-1. Upon form submission, you must generate store extra information as resolved through [Punk API](https://punkapi.com/documentation/v2). We want to store punk API's `id` and `image_url`.
-1. Needless to say, that you read this thoroughly before coding and prefixed all your main page variables with `beer` from the beginning.
-1. Display this image in the list of comments.
-1. Use CSS in the page in order to:
-   * Display user comment within a box rounded green corner, in a square of 300px.
-   * Comment must be vertically and horizontally centered.
-   * Beer name must appear at the top left of the box as a bold text.
-   * Username must appear at the bottom right of the box as italic text.
-   
-         -------------------------------------------
-         | Beer name                               |
-         |                  Comment.               |
-         |                               Username  |
-         -------------------------------------------
+Access the index.php file through a web browser to view and interact with the application.
 
-   * Comments must be displayed horizontally, if there are too many items they must flow to the left:
-   
-     Like this, if it matches 5 columns:
-     
-         Q Q Q Q Q
-         Q Q Q Q Q
-         Q
-     
-     Like this, if it matches 4 columns:
-     
-         Q Q Q Q
-         Q Q Q Q
-         Q Q Q Q
-         Q Q
+####functions.php
 
-1. The username should now be anonymized upon display, and match this vague pattern:
-    ```
-    Raymond             Rayxxxx
-    Camille             Camxxxx
-    Jean                Jeaxxxx
-    Charline            Chaxxxxx
-    Sébastien           Sébxxxxxx
-    Guillaumette        Guixxxxxx
-    Anne-Henriette      Annxxxxxx
-    Alain Dupaire       Alain D.
-    David Henry Jones   David J.
-    ```
+This file contains two functions used in the PHP project.
 
-1. Write a minimal documentation describing:
-   * Standard documentation for method/Class
-   * The purpose of the code
-   * Anything that may help succeed developers how to operate and deploy your code
+getPunkAPIInfo($beername)
+This function retrieves information from the Punk API based on the provided beer name.
+Parameters:
+$beername (string): The name of the beer to search for.
+Return Value:
+An associative array containing the beer's image URL and ID if found.
+Returns null if no data is available.
 
-## Expectation
+anonymizeUsername($username)
+This function anonymizes the provided username.
+Parameters:
+$username (string): The username to anonymize.
+Return Value:
+The anonymized username, where the first name is shortened to its first three letters followed by 'x' characters, and the last name is represented by its first letter followed by a dot.
+If the last name is not provided, only the anonymized first name is returned.
+Please note that the implementation details for these functions are provided in the code. Ensure that the Punk API is accessible and the necessary PHP functions (e.g., file_get_contents) are enabled for the getPunkAPIInfo() function to work correctly. Additionally, verify that the anonymizeUsername() function fulfills the desired anonymization requirements for your project.
 
-This test intends to verify some capabilities:
+#####JavaScript Code
 
-* English language comprehension
-* Bootstrapping ability
-* Basic HTTP comprehension (Headers, Verb)
-* HTML and CSS basic usage, as well as more advanced features.
-* Documented REST service usage
-* Client side validation (JavaScript)
-* Server side operations and validation
-* General knowledge of internet features
-* Autonomy, and proactiveness.
+The JavaScript code snippet provided performs the following tasks:
+
+servereTime()
+This function fetches the server's UTC time using the ISO-8601 format.
+The server time is displayed in an element with the ID "server-time".
+The function is executed repeatedly every 1 millisecond using the setInterval function.
+Fetching the Client IP Address
+
+The client IP address is fetched from an API using the fetch function.
+The API used is "https://api.ipify.org?format=json".
+The fetched IP address is displayed in an element with the ID "client-ip".
+
+validateForm()
+This function is used to validate the username input in a form.
+It retrieves the value of the "username" field from the form.
+It uses a regular expression (/^[a-zA-Z0-9]+$/) to match only alphanumeric characters.
+If the username contains any non-alphanumeric characters, an alert is shown, and the function returns false to prevent form submission.
+
