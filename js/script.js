@@ -1,7 +1,10 @@
 // Fetch server UTC time using ISO-8601 format
+function servereTime() {
 const serverTimeElement = document.getElementById('server-time');
 const serverTime = new Date().toISOString();
 serverTimeElement.textContent = `Server UTC time: ${serverTime}`;
+}
+setInterval(servereTime, 1);
 
 // Fetch client IP address
 const clientIpElement = document.getElementById('client-ip');
