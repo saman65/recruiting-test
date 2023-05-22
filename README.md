@@ -76,3 +76,14 @@ It retrieves the value of the "username" field from the form.
 It uses a regular expression (/^[a-zA-Z0-9]+$/) to match only alphanumeric characters.
 If the username contains any non-alphanumeric characters, an alert is shown, and the function returns false to prevent form submission.
 
+######CommentPage class
+The pagination functions and markup inside the index.php file were transfered to a class called CommentPage. The an instance of the class were created was created in index.php.
+getPageNumber(): string: Retrieves the current page number.
+calculateStartingId(): Calculates the starting ID in the table for retrieving comments.
+calculatePageCount(): Calculates the total number of pages based on the number of comments and items per page.
+getComments(): array: Retrieves the comments from the database.
+generateCommentMarkup(array $comments): Generates HTML markup for displaying comments.
+generatePageNumbers(): Generates HTML markup for displaying page numbers.
+closeConnection(): Closes the database connection.
+
+
