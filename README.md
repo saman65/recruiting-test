@@ -1,6 +1,6 @@
 #Purpose of the Code:
 
-The index.php file represents the main page of a web application. It includes HTML, CSS, and PHP code to display a "Hello World!" message, retrieve and display comments from a database and beer information form a webserver through REST, and provide a form for users to submit new comments. The page also includes pagination functionality to navigate through the comments.
+The index.php file represents the main page of a web application. It includes HTML, CSS, and PHP code to display a "Hello World!" message, the client IP, retrieve and display comments from a database and beer information form a webserver through REST, and provide a form for users to submit new comments. The page also includes pagination functionality to navigate through the comments.
 
 The code performs the following tasks:
 
@@ -13,7 +13,7 @@ Now let's document the functions in the code.
 
 ##Functions:
 
-There are two functions being used, which we can document:
+There are two functions being used, which we can discussed:
 
 getPunkAPIInfo($beername) - This function is used to retrieve information from the Punk API based on the provided beer name.
 
