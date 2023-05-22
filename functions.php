@@ -23,6 +23,7 @@ function getPunkAPIInfo($beername) {
 function anonymizeUsername($username) {
   // Extract the first name and last name initials
   $nameParts = explode(' ', $username);
+  //Split the String into an Array
   $firstName = $nameParts[0];
   $lastName = '';
   if (count($nameParts) > 1) {
